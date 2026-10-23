@@ -1,0 +1,250 @@
+[
+  {
+    "id": "th-01",
+    "index": "PRODUCT 01",
+    "name": "Drop-Shoulder Tee 3combo-offer",
+    "slug": "oversized-box-t-shirt",
+    "price": 999,
+    "currency": "BDT",
+    "category": "UNISEX",
+    "fabric": "100% Heavy Combed Cotton / 200 GSM",
+    "gsm": "200 GSM",
+    "color": "Black & White",
+    "colorHex": "#1c1c1c",
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "inStock": true,
+    "edition": "EDITION 01 — RUN 500",
+    "fit": "Exaggerated boxy cut. Cropped body length. Take your normal size for intended relaxed silhouette.",
+    "description": "Heavyweight 200 GSM custom combed cotton jersey. Cut with exaggerated dropped shoulders, wide architectural sleeves, and a cropped boxy torso. Garment-dyed and silicon washed for raw vintage handle.",
+    "details": [
+      "200 GSM 100% Combed Heavy Cotton",
+      "Wide Ribbed 1.25\" Collar",
+      "Dropped Shoulders & Wide Armhole",
+      "Seamless Side Construction",
+      "Pre-shrunk Cold Pigment Dye"
+    ],
+    "images": [
+      "src/assets/images/product_box_tee_1790182342357.jpg",
+      "src/assets/images/IMG_0560.jpg",
+      "src/assets/images/IMG_0561.jpg",
+      "src/assets/images/IMG_0562.jpg",
+      "src/assets/images/IMG_9025.jpg"
+    ]
+  },
+  {
+    "id": "th-02",
+    "index": "PRODUCT 02",
+    "name": "Carpenter baggy jeans",
+    "slug": "Hammer",
+    "price": 1799,
+    "currency": "BDT",
+    "category": "UNISEX",
+    "fabric": "99.99% Danim cotton jeat-black",
+    "gsm": "380 GSM",
+    "color": "Wash Jet Black",
+    "colorHex": "#1a1a1a",
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "inStock": true,
+    "edition": "EDITION 01 — RUN 350",
+    "fit": "Wide barrel leg with stacked break over footwear. Elasticated waistband with extended interior drawcord.",
+    "description": "​HAMMER // The Reinforced Icon ​12.5oz Stone-Washed Denim. * Double-knee paneling. Built heavy; wears effortless.",
+    "details": [
+      "380 GSM Cotton Canvas",
+      "Dual-Layer Technical Cotton-Pique Knit",
+      "Raw Clean-Cut Hemline",
+      "Natural Unbleached Dye Process"
+    ],
+    "images": [
+      "src/assets/images/Untitled-2.png",
+      "src/assets/images/regenerated_image_1790186049369.png",
+      "src/assets/images/E0523A8D-886F-45F3-9672-F1F0925C2359(2).png",
+      "src/assets/images/IMG_8481.png"
+    ]
+  },
+  {
+    "id": "th-03",
+    "index": "PRODUCT 03",
+    "name": "baggy-cargo-pants",
+    "slug": "k2",
+    "price": 1799,
+    "currency": "BDT",
+    "category": "UNISEX",
+    "fabric": "99.99% Organic Cotton",
+    "gsm": "300 GSM",
+    "color": "Dark Navi Blue",
+    "colorHex": "#1b263b",
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "inStock": true,
+    "edition": "EDITION 01 — RUN 400",
+    "fit": "Ultra-wide athletic box silhouette. Falls cleanly off torso with no cling.",
+    "description": "​K2 // The Modular Essential 11.5oz Denim . Zip-off lower for a seamless 3/4 transition. Engineered for fluid movement.",
+    "details": [
+      "Zip-off lower",
+      "Dual Hidden Snap Flap Pockets",
+      "Raw Clean-Cut Hemline",
+      "Natural Unbleached Dye Process"
+    ],
+    "images": [
+      "src/assets/images/Untitled-3.png",
+      "src/assets/images/regenerated_image_1790186053428.png",
+      "src/assets/images/k5.png",
+      "src/assets/images/EB3EC7DA-84BD-42CC-B173-94C5AF1B12FC.png",
+      "src/assets/images/768474D0-E6F4-4A31-ACDD-58EFF70E4638.png",
+      "src/assets/images/IMG_8756.png"
+    ]
+  },
+  {
+    "id": "th-04",
+    "index": "PRODUCT 04",
+    "name": "Asuri",
+    "slug": "Double layer Hoodie",
+    "price": 2399,
+    "currency": "BDT",
+    "category": "UNISEX",
+    "fabric": "100% Compact Washed Cotton Twill & Terry Cotton",
+    "gsm": "400 GSM",
+    "color": "Lapart & Black",
+    "colorHex": "#1c1c1c",
+    "sizes": ["L", "XL", "XXL"],
+    "inStock": true,
+    "edition": "EDITION 01 — RUN 300",
+    "fit": "⚜️Two styles in one.⚜️ Black for clean confidence. Cheetah for bold energy. Enjoy with your unique look.",
+    "description": "THUNDER’s premium inside-out duo hoodie — ASURI. Heavyweight build. Boxy fit.",
+    "details": [
+      "400 GSM Compact Cotton Twill & Terry Cotton",
+      "Oversized Gusset Inseam",
+      "inside-out duo hoodie",
+      "Heavyweight build Boxy fit."
+    ],
+    "images": [
+      "src/assets/images/Untitled-1.png",
+      "src/assets/images/Untitled-4.png",
+      "src/assets/images/Untitledd-5.png",
+      "src/assets/images/Untitledf-6.png",
+      "src/assets/images/IMG_2134.jpg",
+      "src/assets/images/IMG_8194.jpg"
+    ]
+  },
+  {
+    "id": "th-05",
+    "index": "PRODUCT 05",
+    "name": "Thunder Hoodie",
+    "slug": "Relax Hoodie",
+    "price": 1199,
+    "currency": "BDT",
+    "category": "UNISEX",
+    "fabric": "100% Double-Face Cotton Terry",
+    "gsm": "350 GSM",
+    "color": "Washed Black",
+    "colorHex": "#1a1a1a",
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "inStock": true,
+    "edition": "EDITION 01 — RUN 450",
+    "fit": "Your regular size what you ware but it going to be oversized and boxy fit. I know you guys love drop shoulder boxy T shirt so I come up with this.",
+    "description": "Premium oversized Boxy Hoodie .",
+    "details": [
+      "350 GSM Loopback French Terry",
+      "Boxy Hoodie ",
+      "Regular Useable",
+      "Pre-washed"
+    ],
+    "images": [
+      "src/assets/images/product_heavy_hoodie_1790182397917.jpg",
+      "src/assets/images/D18894C5-8808-4C23-952F-8D159514E9F9.jpg",
+      "src/assets/images/78548AAE-7B1A-4484-A4EB-0057DFEED984.jpg",
+      "src/assets/images/38F4FABC-AE1F-432A-8441-74BB91DDE4EA.jpg",
+      "src/assets/images/26BF1224-DE6D-431E-9874-805B76865E28.jpg"
+    ]
+  },
+  {
+    "id": "th-06",
+    "index": "PRODUCT 06",
+    "name": "Stripe Baggy Asuri Joggers",
+    "slug": "Relax joggers",
+    "price": 1199,
+    "currency": "BDT",
+    "category": "UNISEX",
+    "fabric": "100% Cotton French Terry",
+    "gsm": "350 GSM",
+    "color": "Washed Black",
+    "colorHex": "#1a1a1a",
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "inStock": true,
+    "edition": "EDITION 01 — RUN 450",
+    "fit": "Features distinct curved paneling along the legs accented with a leopard print trim, adding dynamic shape and contrast to a classic silhouette.",
+    "description": "Designed with a generous, relaxed cut through the legs for maximum movement and an effortless drape.Premium oversized Boxy Hoodie .",
+    "details": [
+      "350+ GSM French Terry",
+      "Baggy Joggers ",
+      "Regular Useable",
+      "Pre-washed"
+    ],
+    "images": [
+      "src/assets/images/Untitled-3j.png",
+      "src/assets/images/IMG_1880.jpg",
+      "src/assets/images/IMG_2369.jpg"
+
+    ]
+  },
+  {
+    "id": "th-07",
+    "index": "PRODUCT 07",
+    "name": "Black Baggy Blade Joggers",
+    "slug": "Relax joggers",
+    "price": 1199,
+    "currency": "BDT",
+    "category": "UNISEX",
+    "fabric": "100% Cotton French Terry",
+    "gsm": "350+ GSM",
+    "color": "Black",
+    "colorHex": "#1a1a1a",
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "inStock": true,
+    "edition": "EDITION 01 — RUN 450",
+    "fit": "Elevate your streetwear style with the Black Baggy Blade Joggers—a bold combination of relaxed comfort and edgy Y2K aesthetics.",
+    "description": "Crafted from soft fleece-back sweat fabric in a vintage black marl finish, making them cozy for all-day wear.Premium Baggy Joggers .",
+    "details": [
+      "350+ GSM French Terry",
+      "Baggy Fit ",
+      "Regular Useable",
+      "Pre-washed"
+    ],
+    "images": [
+      "src/assets/images/Untitled-2j.png",
+      "src/assets/images/IMG_3725.jpg",
+      "src/assets/images/IMG_3755.JPG-1.jpeg",
+      "src/assets/images/IMG_3732.jpg"
+    ]
+  },
+  {
+    "id": "th-08",
+    "index": "PRODUCT 08",
+    "name": "Grey Baggy Blade Joggers",
+    "slug": "Relax joggers",
+    "price": 1199,
+    "currency": "BDT",
+    "category": "UNISEX",
+    "fabric": "100% French Cotton Terry",
+    "gsm": "350+ GSM",
+    "color": "Grey",
+    "colorHex": "#1a1a1a",
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "inStock": true,
+    "edition": "EDITION 01 — RUN 450",
+    "fit": "Elevate your streetwear style with the Grey Baggy Blade Joggers—a bold combination of relaxed comfort and edgy Y2K aesthetics.",
+    "description": "Crafted from soft fleece-back sweat fabric in a vintage grey marl finish, making them cozy for all-day wear.Premium Baggy Joggers .",
+    "details": [
+      "350+ GSM French Terry",
+      "Baggy Fit",
+      "Regular Useable",
+      "Pre-washed"
+    ],
+    "images": [
+      "src/assets/images/Untitled-1j.png",
+      "src/assets/images/IMG_3611.JPG.jpeg",
+      "src/assets/images/IMG_3603.jpg",
+      "src/assets/images/IMG_2410.jpg",
+      "src/assets/images/IMG_1869.png"
+    ]
+  }
+]
