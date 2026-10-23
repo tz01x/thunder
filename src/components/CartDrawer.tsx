@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'motion/react';
 import { useCart } from '../context/CartContext';
 import { CursorState } from '../types';
+import { placeOrder } from '../app/actions';
 
 interface CartDrawerProps {
   setCursorState: (state: CursorState) => void;
@@ -92,21 +93,32 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     location: 'INSIDE_DHAKA',
     city: 'Dhanmondi, Dhaka',
     address: '',
-    paymentMethod: 'CASH ON DELIVERY (COD)',
   });
   const [orderRef, setOrderRef] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [orderError, setOrderError] = useState('');
 
-  const handleCheckoutSubmit = (e: React.FormEvent) => {
+  const handleCheckoutSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
-    setTimeout(() => {
-      setIsProcessing(false);
-      const randomRef = `TH-${Math.floor(100000 + Math.random() * 900000)}`;
-      setOrderRef(randomRef);
+    setOrderError('');
+    try {
+      const result = await placeOrder({
+        ...formData,
+        items: cart.map((item) => ({ productId: item.product.id, size: item.size, quantity: item.quantity })),
+      });
+      if ('error' in result) {
+        setOrderError(result.error);
+        return;
+      }
+      setOrderRef(result.ref);
       setCheckoutStep('success');
       clearCart();
-    }, 1200);
+    } catch {
+      setOrderError('COULD NOT PLACE ORDER — PLEASE TRY AGAIN');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const handleClose = () => {
@@ -365,18 +377,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     <label className="block text-[9px] font-mono tracking-widest text-neutral-600 uppercase mb-1">
                       PAYMENT SELECTION
                     </label>
-                    <select
-                      value={formData.paymentMethod}
-                      onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
-                      className="w-full bg-neutral-50 border border-black/15 px-3 py-2.5 text-xs text-black uppercase outline-none focus:border-black font-mono cursor-pointer"
-                    >
-                      <option value="CASH ON DELIVERY (COD)">
-                        CASH ON DELIVERY (COD) — PAY WHEN PARCEL ARRIVES
-                      </option>
-                      <option value="BKASH / NAGAD / ONLINE">
-                        BKASH / NAGAD / ONLINE PAYMENT
-                      </option>
-                    </select>
+                    <div className="w-full bg-neutral-50 border border-black/15 px-3 py-2.5 text-xs text-black uppercase font-mono">
+                      CASH ON DELIVERY (COD) — PAY WHEN PARCEL ARRIVES
+                    </div>
                   </div>
 
                   {/* Delivery & Return Policy Banner */}
@@ -386,6 +389,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     </div>
                     <div>RETURN POLICY: OPEN WITH THE DELIVERY MAN</div>
                   </div>
+
+                  {orderError && (
+                    <p role="alert" className="text-[10px] font-mono text-red-600 uppercase">
+                      {orderError}
+                    </p>
+                  )}
                 </form>
               )}
 
@@ -420,7 +429,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       <span className="text-neutral-400">CONTACT:</span> {formData.phone}
                     </div>
                     <div>
-                      <span className="text-neutral-400">PAYMENT:</span> {formData.paymentMethod}
+                      <span className="text-neutral-400">PAYMENT:</span> CASH ON DELIVERY (COD)
                     </div>
                     <div>
                       <span className="text-neutral-400">ESTIMATED DELIVERY:</span>{' '}
@@ -474,7 +483,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     onMouseLeave={() => setCursorState({ type: 'default' })}
                     className="w-full py-4 text-xs font-semibold tracking-[0.25em] uppercase bg-black text-white hover:bg-neutral-800 disabled:opacity-50 transition-colors"
                   >
-                    {isProcessing ? 'PROCESSING...' : `PAY ${cart[0]?.product.currency || 'BDT'} ${subtotal}`}
+                    {isProcessing ? 'PROCESSING...' : `PLACE ORDER — ${cart[0]?.product.currency || 'BDT'} ${subtotal}`}
                   </button>
                 )}
               </div>

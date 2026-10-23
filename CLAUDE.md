@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-"thunder" — brutalist luxury streetwear storefront. Next.js 16 (App Router) + React 19 + Tailwind v4. Migrated from a Google AI Studio Vite SPA. Frontend only: no backend, no API calls. `@google/genai` is in `package.json` but unused. Not a git repo.
+"thunder" — brutalist luxury streetwear storefront. Next.js 16 (App Router) + React 19 + Tailwind v4. Migrated from a Google AI Studio Vite SPA. Only backend piece is Supabase for checkout orders (see below). `@google/genai` is in `package.json` but unused; `README.md`, `GEMINI_API_KEY`/`APP_URL` in `.env.example` and `metadata.json` are AI Studio leftovers.
 
 ## Commands
 
@@ -16,7 +16,7 @@ npm run start     # serve production build
 npm run lint      # tsc --noEmit (type check only; no ESLint/Prettier)
 ```
 
-No test framework configured.
+No test framework configured. `npm run clean` uses `rm -rf .next` (needs a POSIX shell; fails under cmd on Windows).
 
 ## Architecture
 
@@ -27,6 +27,7 @@ No test framework configured.
 - **Page transitions**: enter-only `motion.div` per view in `views.tsx` (App Router unmounts the old page immediately, so original exit animations are gone).
 - **Client state + SSR**: cart (`localStorage` `thunder_cart_v1`) and user (`thunder_user`) are loaded in `useEffect` after mount, never in `useState` initializers — that would cause hydration mismatches. Cart persistence waits for `isHydrated` so it doesn't overwrite saved cart with `[]`.
 - **Cart**: items embed a full `Product` snapshot; product edits don't update saved carts. `addToCart` auto-opens the drawer.
+- **Checkout → Supabase**: `CartDrawer` form calls server action `placeOrder` (`src/app/actions.ts`), which re-prices items from `products.json` (never trusts client prices), validates, and inserts into `orders` with `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SECRET_KEY` from `.env` (secret key server-only; never `NEXT_PUBLIC_`). Table DDL in `supabase/orders.sql`; RLS on with no policies, so only the secret key can access it. Cash on delivery only; staff read orders in the Supabase dashboard. `@supabase/ssr` is installed but unused (for future real auth).
 - **Auth is mocked**: `LoginPage` simulates robot check + OTP with `setTimeout`, code generated client-side.
 - **Sound**: `SoundAtmosphere` has its own Web Audio logic; `src/context/SoundContext.tsx` duplicates it and is not mounted.
 - **Size guide**: `SizeGuideModal` (~1800 lines, data inline) picks garment category from `defaultCategory` or keyword-matching `productName` (SWEAT/JOGGER/TRACK → SWEATPANTS, PANT/SHORT/CARGO → PANTS, HOODIE, LONG/SLEEVE/THERMAL → FULLSLEEVE, else TEE).
