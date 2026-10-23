@@ -1,8 +1,10 @@
 'use server';
 
 import { randomInt } from 'node:crypto';
+import { after } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import productsData from '../data/products.json';
+import { notifyOrder } from '@/lib/notifiers';
 
 export interface OrderInput {
   name: string;
@@ -88,7 +90,11 @@ export async function placeOrder(input: OrderInput): Promise<OrderResult> {
       items,
       subtotal,
     });
-    if (!error) return { ref };
+    if (!error) {
+      // Runs after the response is sent, so the customer doesn't wait on Telegram etc.
+      after(() => notifyOrder({ ref, name, phone, location, city, address, items, subtotal }));
+      return { ref };
+    }
     if (error.code !== '23505') {
       console.error('placeOrder insert failed', error);
       break;
