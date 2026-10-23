@@ -10,20 +10,42 @@ export interface OrderInput {
   location: string;
   city: string;
   address: string;
+  captchaToken: string;
   items: { productId: string; size: string; quantity: number }[];
 }
 
 export type OrderResult = { ref: string } | { error: string };
 
 const LOCATIONS = ['INSIDE_DHAKA', 'OUTSIDE_DHAKA'];
-const PHONE = /^\+?[0-9\s-]{6,20}$/;
+// Bangladeshi mobile: prefixes 013–019 + 8 digits; optional 88 / +88 / 0088 country code
+const PHONE = /^(?:\+?88|0088)?01[3-9]\d{8}$/;
 
 // Read text field, trimmed and capped; '' if missing
 const text = (value: unknown, max = 300) => (typeof value === 'string' ? value.trim().slice(0, max) : '');
 
+// reCAPTCHA v3 score: 1.0 = likely human, 0.0 = likely bot. Fails closed if the secret is missing.
+async function isHuman(token: string) {
+  if (!token || !process.env.RECAPTCHA_SECRET_KEY) return false;
+  try {
+    const res = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      body: new URLSearchParams({ secret: process.env.RECAPTCHA_SECRET_KEY, response: token }),
+    });
+    const data = await res.json();
+    return data.success === true && data.action === 'checkout' && data.score >= 0.5;
+  } catch (error) {
+    console.error('reCAPTCHA verify failed', error);
+    return false;
+  }
+}
+
 export async function placeOrder(input: OrderInput): Promise<OrderResult> {
+  if (!(await isHuman(text(input?.captchaToken, 4000)))) {
+    return { error: 'COULD NOT VERIFY YOU ARE HUMAN — PLEASE TRY AGAIN' };
+  }
+
   const name = text(input?.name, 120);
-  const phone = text(input?.phone, 20);
+  const phone = text(input?.phone, 30).replace(/[\s-]/g, '');
   const city = text(input?.city, 120);
   const address = text(input?.address, 500);
   const location = text(input?.location, 20);

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Script from 'next/script';
 import { motion, AnimatePresence } from 'motion/react';
 import { useCart } from '../context/CartContext';
 import { CursorState } from '../types';
@@ -9,6 +10,21 @@ interface CartDrawerProps {
   setCursorState: (state: CursorState) => void;
   onExploreProducts: () => void;
 }
+
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!;
+
+declare global {
+  interface Window {
+    grecaptcha: { ready: (cb: () => void) => void; execute: (key: string, opts: { action: string }) => Promise<string> };
+  }
+}
+
+// reCAPTCHA v3: invisible, scored server-side in placeOrder
+const getCaptchaToken = () =>
+  new Promise<string>((resolve, reject) => {
+    if (!window.grecaptcha) return reject(new Error('reCAPTCHA not loaded'));
+    window.grecaptcha.ready(() => window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'checkout' }).then(resolve, reject));
+  });
 
 const BD_LOCATIONS = [
   {
@@ -105,6 +121,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     try {
       const result = await placeOrder({
         ...formData,
+        captchaToken: await getCaptchaToken(),
         items: cart.map((item) => ({ productId: item.product.id, size: item.size, quantity: item.quantity })),
       });
       if ('error' in result) {
@@ -130,6 +147,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   };
 
   return (
+    <>
+    <Script src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`} strategy="lazyOnload" />
     <AnimatePresence>
       {isCartOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden">
@@ -289,7 +308,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     <input
                       type="text"
                       required
-                      placeholder="MD. IBRAHIM / ALEXANDER VANCE"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full bg-neutral-50 border border-black/15 px-3 py-2.5 text-xs text-black uppercase outline-none focus:border-black font-mono"
@@ -304,9 +322,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     <input
                       type="tel"
                       required
-                      placeholder="+880 1712-345678"
+                      // Bangladeshi mobile: 01[3-9] + 8 digits, optional 88 / +88 / 0088 prefix (same rule as placeOrder)
+                      pattern="(?:\+?88|0088)?01[3-9]\d{8}"
+                      title="Bangladeshi mobile number, e.g. 01XXXXXXXXX or +8801XXXXXXXXX (013–019)"
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/[\s-]/g, '') })}
                       className="w-full bg-neutral-50 border border-black/15 px-3 py-2.5 text-xs text-black outline-none focus:border-black font-mono"
                     />
                   </div>
@@ -492,5 +512,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         </div>
       )}
     </AnimatePresence>
+    </>
   );
 };
